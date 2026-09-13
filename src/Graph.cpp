@@ -34,7 +34,17 @@ void Graph::displayLocations() const {
              << endl;
     }
 }
+int Graph::findLocation(string name) const {
 
+    for (const auto& location : locations) {
+
+        if (location.getName() == name) {
+            return location.getId();
+        }
+    }
+
+    return -1;
+}
 void Graph::findShortestRoute(int source, int destination) {
 
     vector<int> distance(

@@ -44,24 +44,24 @@ int main() {
 
     city.displayLocations();
 
-    int source;
-    int destination;
+   string sourceName;
+string destinationName;
 
-    cout << "\nEnter source location ID: ";
-    cin >> source;
+cout << "\nEnter source location: ";
+cin >> sourceName;
 
-    cout << "Enter destination location ID: ";
-    cin >> destination;
+cout << "Enter destination location: ";
+cin >> destinationName;
 
-    if (
-        source < 0 || source >= 5 ||
-        destination < 0 || destination >= 5
-    ) {
+int source = city.findLocation(sourceName);
+int destination = city.findLocation(destinationName);
 
-        cout << "\nInvalid location ID.\n";
+   if (source == -1 || destination == -1) {
 
-        return 0;
-    }
+    cout << "\nLocation not found.\n";
+
+    return 0;
+}
 
     city.findShortestRoute(
         source,

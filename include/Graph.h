@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <utility>
+#include <string>
 #include "Location.h"
 
 using namespace std;
@@ -21,6 +22,8 @@ public:
     void addRoad(int source, int destination, int distance);
 
     void displayLocations() const;
+
+    int findLocation(string name) const;
 
     void findShortestRoute(int source, int destination);
 };
