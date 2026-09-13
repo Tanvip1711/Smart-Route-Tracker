@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "include/Graph.h"
 
@@ -12,56 +13,35 @@ int main() {
 
     Graph city(5);
 
-    // Locations
-    city.addLocation(
-        Location(0, "Ravet", 18.6507, 73.7597)
-    );
+    // Load locations and roads from files
+    if (!city.loadData(
+        "data/locations.txt",
+        "data/roads.txt"
+    )) {
 
-    city.addLocation(
-        Location(1, "Akurdi", 18.6500, 73.7769)
-    );
-
-    city.addLocation(
-        Location(2, "Nigdi", 18.6516, 73.7798)
-    );
-
-    city.addLocation(
-        Location(3, "Pimpri", 18.6298, 73.7997)
-    );
-
-    city.addLocation(
-        Location(4, "Chinchwad", 18.6298, 73.7810)
-    );
-
-    // Roads
-    city.addRoad(0, 1, 4);
-    city.addRoad(0, 2, 6);
-    city.addRoad(1, 2, 2);
-    city.addRoad(1, 3, 7);
-    city.addRoad(2, 3, 4);
-    city.addRoad(2, 4, 5);
-    city.addRoad(3, 4, 3);
+        cout << "Failed to load route data.\n";
+        return 1;
+    }
 
     city.displayLocations();
 
-   string sourceName;
-string destinationName;
+    string sourceName;
+    string destinationName;
 
-cout << "\nEnter source location: ";
-cin >> sourceName;
+    cout << "\nEnter source location: ";
+    cin >> sourceName;
 
-cout << "Enter destination location: ";
-cin >> destinationName;
+    cout << "Enter destination location: ";
+    cin >> destinationName;
 
-int source = city.findLocation(sourceName);
-int destination = city.findLocation(destinationName);
+    int source = city.findLocation(sourceName);
+    int destination = city.findLocation(destinationName);
 
-   if (source == -1 || destination == -1) {
+    if (source == -1 || destination == -1) {
 
-    cout << "\nLocation not found.\n";
-
-    return 0;
-}
+        cout << "\nLocation not found.\n";
+        return 1;
+    }
 
     city.findShortestRoute(
         source,

@@ -1,5 +1,6 @@
 #include "../include/Graph.h"
-
+#include <fstream>
+#include <sstream>
 #include <iostream>
 #include <queue>
 #include <limits>
@@ -127,4 +128,84 @@ void Graph::findShortestRoute(int source, int destination) {
     cout << "\nTotal Distance: "
          << distance[destination]
          << " km\n";
+
+         
+}
+bool Graph::loadData(
+    const string& locationFile,
+    const string& roadFile
+) {
+
+    ifstream locationInput(locationFile);
+
+    if (!locationInput.is_open()) {
+        cout << "Error: Could not open location file.\n";
+        return false;
+    }
+
+    string line;
+
+    while (getline(locationInput, line)) {
+
+        stringstream ss(line);
+
+        string idText;
+        string name;
+        string latitudeText;
+        string longitudeText;
+
+        getline(ss, idText, ',');
+        getline(ss, name, ',');
+        getline(ss, latitudeText, ',');
+        getline(ss, longitudeText, ',');
+
+        int id = stoi(idText);
+        double latitude = stod(latitudeText);
+        double longitude = stod(longitudeText);
+
+        addLocation(
+            Location(
+                id,
+                name,
+                latitude,
+                longitude
+            )
+        );
+    }
+
+    locationInput.close();
+
+    ifstream roadInput(roadFile);
+
+    if (!roadInput.is_open()) {
+        cout << "Error: Could not open road file.\n";
+        return false;
+    }
+
+    while (getline(roadInput, line)) {
+
+        stringstream ss(line);
+
+        string sourceText;
+        string destinationText;
+        string distanceText;
+
+        getline(ss, sourceText, ',');
+        getline(ss, destinationText, ',');
+        getline(ss, distanceText, ',');
+
+        int source = stoi(sourceText);
+        int destination = stoi(destinationText);
+        int distance = stoi(distanceText);
+
+        addRoad(
+            source,
+            destination,
+            distance
+        );
+    }
+
+    roadInput.close();
+
+    return true;
 }

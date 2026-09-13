@@ -26,6 +26,9 @@ public:
     int findLocation(string name) const;
 
     void findShortestRoute(int source, int destination);
-};
+    bool loadData(
+    const string& locationFile,
+    const string& roadFile
+);};
 
 #endif
